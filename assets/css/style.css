@@ -1,0 +1,354 @@
+/* Reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    background-color: #000; /* Fallback color for when video doesn't load */
+    color: black;
+    font-family: "Lato", sans-serif;
+    font-weight: 400;
+}
+
+/* Video Background */
+.background-video {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    object-fit: cover;
+    z-index: -1;
+}
+
+/* Navbar Styling */
+.navbar-container {
+    position: fixed;
+    top: 0;
+    right: 0;
+    height: 100vh;
+    width: 60px;
+    background: rgba(0, 0, 0, 0.8);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 100;
+}
+
+.navbar-container ul {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    height: 80%;
+    list-style: none;
+    padding: 0;
+}
+
+.navbar-container ul li {
+    position: relative;
+    text-align: center;
+    margin: 10px 0;
+}
+
+.navbar-container ul li a {
+    color: #fff;
+    text-decoration: none;
+    font-size: 20px;
+    display: inline-block;
+    transition: transform 0.3s ease, opacity 0.3s ease;
+    opacity: 0.5;
+}
+
+.navbar-container ul li a:hover {
+    transform: scale(1.2);
+    opacity: 1;
+}
+
+.navbar-container ul li a ion-icon {
+    font-size: 1.5em;
+}
+
+.navbar-container ul li.active a {
+    opacity: 1;
+}
+
+#marker {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 60px; 
+    height: 65px; /* Tinggi ditambahkan sedikit untuk memastikan proporsi kotak */
+    background: transparent; /* Default: Tidak terlihat */
+    border-radius: 10px; /* Sudut tetap sedikit melengkung */
+    box-shadow: none; /* Tidak ada bayangan saat default */
+    transition: all 0.5s ease; /* Transisi halus untuk semua properti */
+    z-index: -1;
+}
+
+.navbar-container ul li:hover ~ #marker {
+    background: #5da6ff; /* Warna marker saat hover */
+    box-shadow: 0 0 15px #5da6ff, 0 0 25px #5da6ff; /* Glow saat hover */
+}
+
+.navbar-container ul li:nth-child(1):hover ~ #marker {
+    background: #ff5d5d; /* Warna untuk menu pertama */
+    box-shadow: 0 0 15px #ff5d5d, 0 0 25px #ff5d5d;
+}
+
+.navbar-container ul li:nth-child(2):hover ~ #marker {
+    background: #5dff5d; /* Warna untuk menu kedua */
+    box-shadow: 0 0 15px #5dff5d, 0 0 25px #5dff5d;
+}
+
+.navbar-container ul li:nth-child(3):hover ~ #marker {
+    background: #5d5dff; /* Warna untuk menu ketiga */
+    box-shadow: 0 0 15px #5d5dff, 0 0 25px #5d5dff;
+}
+
+
+
+/* Tambahkan untuk menu berikutnya sesuai kebutuhan */
+
+
+/* Section Styling */
+section.home {
+    display: flex;
+    flex-direction: column; /* Agar konten bisa di tengah secara vertikal */
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh; /* Setiap section setidaknya setinggi layar */
+    width: 100%;
+    padding: 100px 80px; /* Memberi jarak atas/bawah dan kiri/kanan */
+    z-index: 1;
+    box-sizing: border-box; /* Agar padding tidak menambah ukuran total */
+}
+
+.home .content {
+    max-width: 900px; /* Lebarkan kontainer utama */
+    padding: 1.4rem 5%;
+    text-align: center;
+}
+
+.home .content h1 {
+    font-size: 2.4rem;
+    color: rgb(255, 208, 0);
+    margin-bottom: 1.5rem; /* Tambah jarak bawah judul */
+    font-family: "Roboto Slab", serif;
+    font-optical-sizing: auto;
+    font-weight: 600;
+    font-style: normal;
+}
+
+.home .content p, .home .content ul {
+    font-size: 1.2rem;
+    color: white;
+    margin-bottom: 2rem; /* Tambah jarak bawah untuk paragraf dan list */
+    text-shadow: 1px 1px 3px rgba(0,0,0,0.7);
+}
+
+/* Hapus margin bawah dari elemen terakhir di dalam .content agar rapi */
+.home .content > *:last-child {
+    margin-bottom: 0;
+}
+
+/* Responsive Image */
+.profile-photo {
+    width: 200px; /* Atur lebar gambar */
+    height: 200px; /* Atur tinggi gambar untuk memastikan bentuk persegi */
+    border-radius: 50%; /* Membuat gambar menjadi bulat sempurna */
+    object-fit: cover; /* Memastikan gambar terpotong dengan baik dalam lingkaran */
+    margin: 1rem 0;
+}
+
+
+/* Skills List */
+.skills {
+    list-style: none;
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+.skills li {
+    background-color: rgb(92, 250, 229);
+    padding: 10px 15px;
+    border-radius: 5px;
+    color: #000;
+    font-weight: bold;
+}
+
+.portfolio-list {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 20px;
+}
+
+.portfolio-item {
+    background: #fff;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 4px 8px rgb(255, 255, 255);
+    transition: transform 0.3s ease;
+    width: 100%; /* Gunakan lebar penuh dari kontainer .content */
+    text-align: left;
+    color: black;
+}
+
+.portfolio-item:hover {
+    transform: scale(1.05);
+}
+
+.portfolio-item h3 {
+    color: #fff;
+    padding: 15px;
+    font-size: 1.1rem;
+    background-color: rgb(50, 50, 50);
+    margin: 0;
+}
+
+
+.portfolio-item video {
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px; /* Tambahkan border jika diperlukan */   /* Tambahkan radius jika ingin efek rounded */
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2); /* Tambahkan bayangan untuk efek lebih menarik */
+}
+
+/* Contact Form */
+.contact-form {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.contact-form input,
+.contact-form textarea,
+.contact-form button {
+    padding: 12px;
+    border-radius: 8px;
+    border: 1px solid rgba(255, 255, 255, 0.2); /* Border sedikit transparan */
+    font-size: 16px;
+    font-family: 'Arial', sans-serif;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
+    background: rgba(255, 255, 255, 0); /* Background transparan */
+    color: white; /* Warna teks putih */
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5); /* Efek bayangan pada teks */
+}
+
+.contact-form input:focus,
+.contact-form textarea:focus {
+    border-color: rgb(75, 210, 192);
+    outline: none;
+    box-shadow: 0 2px 8px rgba(75, 210, 192, 0.5);
+}
+
+.contact-form textarea {
+    resize: vertical;
+    min-height: 120px;
+}
+
+.contact-form button {
+    background: linear-gradient(135deg, rgb(92, 250, 229), rgb(75, 210, 192));
+    color: #fff;
+    border: none;
+    cursor: pointer;
+    font-weight: bold;
+    transition: all 0.3s ease;
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.15);
+}
+
+.contact-form button:hover {
+    background: linear-gradient(135deg, rgb(75, 210, 192), rgb(92, 250, 229));
+    transform: scale(1.05);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.contact-form button:active {
+    transform: scale(0.98);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* Dropdown Styling */
+select {
+    padding: 12px;
+    border-radius: 8px;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    background: rgba(255, 255, 255, 0.1);
+    color: white;
+    font-size: 16px;
+    font-family: 'Arial', sans-serif;
+    transition: all 0.3s ease;
+    cursor: pointer;
+    width: 100%;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+select:focus {
+    border-color: rgb(75, 210, 192);
+    outline: none;
+    box-shadow: 0 2px 8px rgba(75, 210, 192, 0.5);
+}
+
+option {
+    background: rgba(0, 0, 0, 0.8);
+    color: white;
+}
+
+/* Footer Styling */
+.footer {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    color: rgb(255, 255, 255);
+    text-align: center;
+    padding: 1rem;
+    font-size: 1rem;
+    text-shadow: 2px 2px 5px rgb(255, 255, 255);
+    box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.1);
+    z-index: 10;
+}
+
+/* Responsive Styling */
+@media (max-width: 768px) {
+    section.home {
+        /* Kurangi padding di mobile, tapi sisakan ruang untuk navbar di kanan */
+        padding: 40px 70px 40px 20px;
+    }
+
+    .home .content {
+        padding: 1rem 2%;
+    }
+    
+    .home .content h1 {
+        font-size: 1.8rem; /* Kecilkan judul di mobile */
+    }
+
+    .portfolio-list {
+        flex-direction: column; /* Susun proyek secara vertikal di mobile */
+        align-items: center;
+        gap: 30px; /* Tambah jarak antar video di mobile */
+    }
+
+    .portfolio-item {
+        max-width: 90vw; /* Batasi lebar item agar tidak terlalu lebar di tablet */
+    }
+
+    .profile-photo {
+        max-width: 150px;
+    }
+}
