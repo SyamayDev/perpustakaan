@@ -58,6 +58,8 @@ class Login extends CI_Controller
                     redirect(base_url(). 'login?alert=gagal');
                 }
             }
+        } else {
+            $this->load->view('v_login');
         }
     }
 }
