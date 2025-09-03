@@ -1,17 +1,4 @@
 RewriteEngine On
-RewriteBase /Perpustakaan/
-
-# Redirect non-www to www (optional)
-# RewriteCond %{HTTP_HOST} ^localhost [NC]
-# RewriteRule ^(.*)$ http://localhost/$1 [L,R=301]
-
-# If the requested resource doesn't exist as a file or directory, redirect to index.php
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d
 RewriteRule ^(.*)$ index.php/$1 [L]
-
-# Prevent direct access to .htaccess
-<Files .htaccess>
-    order allow,deny
-    deny from all
-</Files>
