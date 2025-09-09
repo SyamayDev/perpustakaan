@@ -11,7 +11,7 @@ class Login extends CI_Controller
         $this->load->view('v_login');
     }
 
-    public function aksi_login(){
+    public function login_aksi(){
         $username = $this->input->post('username');
         $password = $this->input->post('password');
         $sebagai = $this->input->post('sebagai');
@@ -62,4 +62,5 @@ class Login extends CI_Controller
             $this->load->view('v_login');
         }
     }
+    
 }
