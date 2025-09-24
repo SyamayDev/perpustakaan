@@ -39,11 +39,11 @@
           <form action="<?php echo site_url('login/login_aksi'); ?>" method="post">
             <div class="form-group">
               <label for="username" style="color:white;">Username :</label>
-              <input type="text" class="form-control" id="username" name="username" placeholder="Masukkan Username" required style="background: rgba(255,255,255,0.2); border:1px solid rgba(255,255,255,0.3); color:white;">
+              <input type="text" class="form-control" id="username" name="username" placeholder="Masukkan Username" style="background: rgba(255,255,255,0.2); border:1px solid rgba(255,255,255,0.3); color:white;">
             </div>
             <div class="form-group">
               <label for="password" style="color:white;">Password :</label>
-              <input type="password" class="form-control" id="password" name="password" placeholder="Masukkan Password" required style="background: rgba(255,255,255,0.2); border:1px solid rgba(255,255,255,0.3); color:white;">
+              <input type="password" class="form-control" id="password" name="password" placeholder="Masukkan Password" style="background: rgba(255,255,255,0.2); border:1px solid rgba(255,255,255,0.3); color:white;">
             </div>
             <div class="form-group">
               <label for="sebagai" style="color:white;">Login Sebagai :</label>
