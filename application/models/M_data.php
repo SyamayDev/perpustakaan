@@ -26,7 +26,8 @@ class M_data extends CI_Model{
 
     // fungsi untuk menghapus data dari database
     public function delete_data($where,$table){
-        $this->db->where($table,$where);
+        $this->db->where($where);
+        $this->db->delete($table);
     }
     // AKHIR FUNGSI CRUD
 

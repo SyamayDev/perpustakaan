@@ -1,7 +1,7 @@
 <?php
 defined('BASEPATH') or exit('No direct script access allowed');
 
-class Admin extends CI_Controller
+class petugas extends CI_Controller
 {
     function __construct()
     {
@@ -9,16 +9,16 @@ class Admin extends CI_Controller
         $this->load->helper('url');
         $this->load->library('session');
 
-        if($this->session->userdata('status') != "admin_login"){
+        if($this->session->userdata('status') != "petugas_login"){
             redirect(base_url('login?alert=belum_login'));
         }
     }
 
     public function index()
     {
-        $this->load->view('admin/v_header');
-        $this->load->view('admin/v_index');
-        $this->load->view('admin/v_footer');
+        $this->load->view('petugas/v_header');
+        $this->load->view('petugas/v_index');
+        $this->load->view('petugas/v_footer');
     }
 
     public function logout()
@@ -29,9 +29,9 @@ class Admin extends CI_Controller
 
     public function ganti_password()
     {
-        $this->load->view('admin/v_header');
-        $this->load->view('admin/v_ganti_password');
-        $this->load->view('admin/v_footer');
+        $this->load->view('petugas/v_header');
+        $this->load->view('petugas/v_ganti_password');
+        $this->load->view('petugas/v_footer');
     }
 
     public function ganti_password_aksi()
@@ -46,12 +46,12 @@ class Admin extends CI_Controller
             $id = $this->session->userdata('id');
             $where = array('id' => $id);
             $data = array('password' => md5($baru));
-            $this->m_data->update_data($where, $data, 'admin');
-            redirect(base_url('admin/ganti_password?alert=sukses'));
+            $this->m_data->update_data($where, $data, 'petugas');
+            redirect(base_url('petugas/ganti_password?alert=sukses'));
         } else {
-            $this->load->view('admin/v_header');
-            $this->load->view('admin/v_ganti_password');
-            $this->load->view('admin/v_footer');
+            $this->load->view('petugas/v_header');
+            $this->load->view('petugas/v_ganti_password');
+            $this->load->view('petugas/v_footer');
         }
     }
 
@@ -60,16 +60,16 @@ class Admin extends CI_Controller
     {
         // mengambil data dari database
         $data['petugas'] = $this->m_data->get_data('petugas')->result();
-        $this->load->view('admin/v_header');
-        $this->load->view('admin/v_petugas', $data);
-        $this->load->view('admin/v_footer');
+        $this->load->view('petugas/v_header');
+        $this->load->view('petugas/v_petugas', $data);
+        $this->load->view('petugas/v_footer');
     }
 
     public function petugas_tambah()
     {
-        $this->load->view('admin/v_header');
-        $this->load->view('admin/v_petugas_tambah');
-        $this->load->view('admin/v_footer');
+        $this->load->view('petugas/v_header');
+        $this->load->view('petugas/v_petugas_tambah');
+        $this->load->view('petugas/v_footer');
     }
 
     public function petugas_tambah_aksi()
@@ -84,14 +84,14 @@ class Admin extends CI_Controller
             'password' => md5($password)
         );
         $this->m_data->insert_data($data, 'petugas');
-        redirect(base_url('admin/petugas'));
+        redirect(base_url('petugas/petugas'));
     }
     public function petugas_edit($id){
         $where = array('id' => $id);
         $data['petugas'] = $this->m_data->edit_data($where, 'petugas')->result();
-        $this->load->view('admin/v_header');    
-        $this->load->view('admin/v_petugas_edit', $data);
-        $this->load->view('admin/v_footer');
+        $this->load->view('petugas/v_header');    
+        $this->load->view('petugas/v_petugas_edit', $data);
+        $this->load->view('petugas/v_footer');
     }
     public function petugas_update(){
         $id = $this->input->post('id');
@@ -117,12 +117,12 @@ class Admin extends CI_Controller
         );
         $this->m_data->update_data($where, $data, 'petugas');
     }
-        redirect(base_url('admin/petugas'));
+        redirect(base_url('petugas/petugas'));
     }
 public function petugas_hapus($id){
         $where = array('id' => $id);
         $this->m_data->delete_data($where, 'petugas');
-        redirect(base_url('admin/petugas'));
+        redirect(base_url('petugas/petugas'));
     }
     // akhir crud petuas
 }
