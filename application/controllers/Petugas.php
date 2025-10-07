@@ -119,10 +119,39 @@ class petugas extends CI_Controller
     }
         redirect(base_url('petugas/petugas'));
     }
-public function petugas_hapus($id){
-        $where = array('id' => $id);
-        $this->m_data->delete_data($where, 'petugas');
-        redirect(base_url('petugas/petugas'));
+    public function petugas_hapus($id){
+            $where = array('id' => $id);
+            $this->m_data->delete_data($where, 'petugas');
+            redirect(base_url('petugas/petugas'));
     }
     // akhir crud petuas
+
+    // crud anggota
+    public function anggota() {
+        $data['anggota'] = $this->m_data->get_data('anggota')->result();
+        $this->load->view('petugas/v_header');
+        $this->load->view('petugas/v_anggota',$data);
+        $this->load->view('petugas/v_footer');
+    }
+
+    public function anggota_tambah() {
+        $this->load->view('petugas/v_header');
+        $this->load->view('petugas/v_anggota_tambah');
+        $this->load->view('petugas/v_footer');
+    }
+
+    public function anggota_tambah_aksi() {
+        $nama = $this->input->post('nama');
+        $nik = $this->input->post('nik');
+        $alamat = $this->input->post('alamat');
+
+        $data = array(
+            'nama' => $nama,
+            'nik' => $nik,
+            'alamat' => $alamat
+        );
+        $this->m_data->insert_data($data, 'anggota');
+        redirect(base_url('petugas/anggota'));
+    }
+    
 }

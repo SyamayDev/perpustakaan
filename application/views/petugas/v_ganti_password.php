@@ -7,7 +7,7 @@
                 </div>
 
                 <div class="card-body">
-                <?php 
+                <?php
                 if (isset($_GET['alert'])) {
                     if ($_GET['alert']=="sukses") {
                         echo "<div class='alert alert-success text-center'>Password berhasil diganti!✅</div>";
@@ -16,7 +16,7 @@
                 ?>
                 <?php echo validation_errors(); ?>
 
-                <form action="<?php echo base_url('admin/ganti_password_aksi'); ?>" method="post">
+                <form action="<?php echo base_url('petugas/ganti_password_aksi'); ?>" method="post">
                     <div class="form-group">
                         <label class="font-weight-bold" for="password_baru">Password Baru</label>
                         <input type="password" class="form-control" id="password_baru" name="password_baru" placeholder="Masukkan Password Baru">
