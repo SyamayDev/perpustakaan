@@ -15,13 +15,14 @@
     <script src="<?php echo base_url('assets/js/bootstrap.js'); ?>"></script>
     <!-- js datatables -->
     <script src="<?php echo base_url('assets/DataTables/datatables.js'); ?>"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </head>
 <body>
 
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark mb-3">
     <div class="container-fluid">
         <a class="navbar-brand" href="<?php echo base_url('petugas'); ?>">SI Perpustakaan</a>
-        <button class="navbar-toggler" type="button" data-target="#navbarText"" data-toggle="collapse" aria-controls="navbartext" aria-expanded="false" aria-label="Toggle navigation">
+        <button class="navbar-toggler" type="button" data-target="#navbarText" data-toggle="collapse" aria-controls="navbartext" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>  
 
@@ -37,6 +38,12 @@
                     <a href="<?php echo base_url('petugas/anggota'); ?>" class="nav-link"><i class="fa fa-users mr-2"></i>Anggota</a>
                 </li>
                 <li class="nav-item">
+                    <a href="<?php echo base_url('petugas/buku'); ?>" class="nav-link"><i class="fa fa-book mr-2"></i>Buku</a>
+                </li>
+                <li class="nav-item">
+                    <a href="<?php echo base_url('petugas/peminjaman'); ?>" class="nav-link"><i class="fa fa-book mr-2"></i>Peminjaman</a>
+                </li>
+                <li class="nav-item">
                     <a href="<?php echo base_url('petugas/peminjaman_laporan'); ?>" class="nav-link"><i class="fa fa-book mr-2"></i>Laporan Peminjaman</a>
                 </li>
                 <li class="nav-item">
@@ -44,7 +51,7 @@
                 </li>
             </ul>
 
-            <span class="navbar-text mr-3 text-center">Halo, Selamat Datang <?php echo $this->session->userdata('username'); ?></span>
+            <span class="navbar-text mr-3 text-center">Halo <?php echo $this->session->userdata('username'); ?></span>
             <a href="<?php echo base_url('petugas/logout'); ?>" class="btn btn-outline-light ml-1"><i class="fa fa-sign-out mr-2"></i>Logout</a>
         </div>
     </div>

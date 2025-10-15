@@ -209,4 +209,68 @@ class petugas extends CI_Controller
         $data['anggota'] = $this->m_data->edit_data($where, 'anggota')->result();
         $this->load->view('petugas/v_anggota_kartu', $data);
     }
+    public function buku(){
+        $data['buku'] = $this->m_data->get_data('buku')->result();
+        $this->load->view('petugas/v_header');
+        $this->load->view('petugas/v_buku', $data);
+        $this->load->view('petugas/v_footer');
+    }
+    public function buku_tambah()
+    {
+        $this->load->view('petugas/v_header');
+        $this->load->view('petugas/v_buku_tambah');
+        $this->load->view('petugas/v_footer');
+    }
+    public function buku_tambah_aksi()
+    {
+        $judul = $this->input->post('judul');
+        $tahun = $this->input->post('tahun');
+        $penulis = $this->input->post('penulis');
+
+        $data = array(
+            'judul' => $judul,
+            'tahun' => $tahun,
+            'penulis' => $penulis,
+            'status' => 1
+        );
+        $this->m_data->insert_data($data, 'buku');
+        redirect(base_url('petugas/buku'));
+    } 
+    public function buku_edit($id)
+    {
+        $where = array('id' => $id);
+        $data['buku'] = $this->m_data->edit_data($where, 'buku')->result();
+        $this->load->view('petugas/v_header');
+        $this->load->view('petugas/v_buku_edit', $data);
+        $this->load->view('petugas/v_footer');
+    }
+    public function buku_update()
+    {
+        $id = $this->input->post('id');
+        $judul = $this->input->post('judul');
+        $tahun = $this->input->post('tahun');
+        $penulis = $this->input->post('penulis');
+        $status = $this->input->post('status');
+
+        $where = array(
+            'id' => $id
+        );
+
+            $data = array(
+                'judul' => $judul,
+                'tahun' => $tahun,
+                'penulis' => $penulis,
+                'status' => $status
+            );
+            $this->m_data->update_data($where, $data, 'buku');
+        redirect(base_url('petugas/buku'));
+    }
+    public function buku_hapus($id)
+    {
+        $where = array('id' => $id);
+        $this->m_data->delete_data($where, 'buku');
+        redirect(base_url('petugas/buku'));
+    }
+
+
 }
