@@ -9,7 +9,7 @@ class petugas extends CI_Controller
         $this->load->helper('url');
         $this->load->library('session');
 
-        if($this->session->userdata('status') != "petugas_login"){
+        if ($this->session->userdata('status') != "petugas_login") {
             redirect(base_url('login?alert=belum_login'));
         }
     }
@@ -86,14 +86,16 @@ class petugas extends CI_Controller
         $this->m_data->insert_data($data, 'petugas');
         redirect(base_url('petugas/petugas'));
     }
-    public function petugas_edit($id){
+    public function petugas_edit($id)
+    {
         $where = array('id' => $id);
         $data['petugas'] = $this->m_data->edit_data($where, 'petugas')->result();
-        $this->load->view('petugas/v_header');    
+        $this->load->view('petugas/v_header');
         $this->load->view('petugas/v_petugas_edit', $data);
         $this->load->view('petugas/v_footer');
     }
-    public function petugas_update(){
+    public function petugas_update()
+    {
         $id = $this->input->post('id');
         $nama = $this->input->post('nama');
         $username = $this->input->post('username');
@@ -109,38 +111,42 @@ class petugas extends CI_Controller
                 'username' => $username
             );
             $this->m_data->update_data($where, $data, 'petugas');
-    } else {
-        $data = array(
-            'nama' => $nama,
-            'username' => $username,
-            'password' => md5($password)
-        );
-        $this->m_data->update_data($where, $data, 'petugas');
-    }
+        } else {
+            $data = array(
+                'nama' => $nama,
+                'username' => $username,
+                'password' => md5($password)
+            );
+            $this->m_data->update_data($where, $data, 'petugas');
+        }
         redirect(base_url('petugas/petugas'));
     }
-    public function petugas_hapus($id){
-            $where = array('id' => $id);
-            $this->m_data->delete_data($where, 'petugas');
-            redirect(base_url('petugas/petugas'));
+    public function petugas_hapus($id)
+    {
+        $where = array('id' => $id);
+        $this->m_data->delete_data($where, 'petugas');
+        redirect(base_url('petugas/petugas'));
     }
     // akhir crud petuas
 
     // crud anggota
-    public function anggota() {
+    public function anggota()
+    {
         $data['anggota'] = $this->m_data->get_data('anggota')->result();
         $this->load->view('petugas/v_header');
-        $this->load->view('petugas/v_anggota',$data);
+        $this->load->view('petugas/v_anggota', $data);
         $this->load->view('petugas/v_footer');
     }
 
-    public function anggota_tambah() {
+    public function anggota_tambah()
+    {
         $this->load->view('petugas/v_header');
         $this->load->view('petugas/v_anggota_tambah');
         $this->load->view('petugas/v_footer');
     }
 
-    public function anggota_tambah_aksi() {
+    public function anggota_tambah_aksi()
+    {
         $nama = $this->input->post('nama');
         $nik = $this->input->post('nik');
         $alamat = $this->input->post('alamat');
@@ -153,5 +159,54 @@ class petugas extends CI_Controller
         $this->m_data->insert_data($data, 'anggota');
         redirect(base_url('petugas/anggota'));
     }
-    
+
+    public function anggota_edit($id)
+    {
+        $where = array('id' => $id);
+        $data['anggota'] = $this->m_data->edit_data($where, 'anggota')->result();
+        $this->load->view('petugas/v_header');
+        $this->load->view('petugas/v_anggota_edit', $data);
+        $this->load->view('petugas/v_footer');
+    }
+    public function anggota_update()
+    {
+        $id = $this->input->post('id');
+        $nama = $this->input->post('nama');
+        $nik = $this->input->post('nik');
+        $alamat = $this->input->post('alamat');
+
+        $where = array(
+            'id' => $id
+        );
+
+        if ($password == '') {
+            $data = array(
+                'nama' => $nama,
+                'nik' => $nik,
+                'alamat' => $alamat
+            );
+            $this->m_data->update_data($where, $data, 'anggota');
+        } else {
+            $data = array(
+                'nama' => $nama,
+                'nik' => $nik,
+                'alamat' => $alamat
+            );
+            $this->m_data->update_data($where, $data, 'anggota');
+        }
+        redirect(base_url('petugas/anggota'));
+    }
+    public function anggota_hapus($id)
+    {
+        $where = array('id' => $id);
+        $this->m_data->delete_data($where, 'anggota');
+        redirect(base_url('petugas/anggota'));
+    }
+    public function anggota_kartu($id)
+    {
+        $where = array('id' => $id);
+        // mengambil data dari database sesuai id
+        $data['anggota'] = $this->m_data->edit_data($where, 'anggota')->result();
+        $this->load->view('petugas/v_anggota_kartu', $data);
+    }
 }
