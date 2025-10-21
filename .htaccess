@@ -1,4 +1,13 @@
-RewriteEngine On
-RewriteCond %{REQUEST_FILENAME} !-f
-RewriteCond %{REQUEST_FILENAME} !-d
-RewriteRule ^(.*)$ index.php/$1 [L]
+<IfModule mod_rewrite.c>
+	# Enable rewrite engine
+	Options +FollowSymLinks -MultiViews
+	RewriteEngine On
+
+	# If your project is in a subfolder, set the RewriteBase to that path
+	RewriteBase /Perpustakaan/
+
+	# Redirect all non-file/directory requests to index.php
+	RewriteCond %{REQUEST_FILENAME} !-f
+	RewriteCond %{REQUEST_FILENAME} !-d
+	RewriteRule ^(.*)$ index.php/$1 [L]
+</IfModule>

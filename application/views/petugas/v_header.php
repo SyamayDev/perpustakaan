@@ -10,12 +10,14 @@
     <link rel="stylesheet" href="<?php echo base_url('assets/DataTables/datatables.css'); ?>">
     <!-- icon font awesome -->
     <link rel="stylesheet" href="<?php echo base_url('assets/css/awesome/css/font-awesome.css'); ?>">
+    <link rel="stylesheet" href="<?php echo base_url('assets/select2/css/select2.min.css'); ?>">
     <!-- jquery dan boostrap js -->
     <script src="<?php echo base_url('assets/js/jquery.js'); ?>"></script>
     <script src="<?php echo base_url('assets/js/bootstrap.js'); ?>"></script>
     <!-- js datatables -->
     <script src="<?php echo base_url('assets/DataTables/datatables.js'); ?>"></script>
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="<?php echo base_url('assets/select2/js/select2.min.js'); ?>"></script>
+
 </head>
 <body>
 
@@ -41,10 +43,10 @@
                     <a href="<?php echo base_url('petugas/buku'); ?>" class="nav-link"><i class="fa fa-book mr-2"></i>Buku</a>
                 </li>
                 <li class="nav-item">
-                    <a href="<?php echo base_url('petugas/peminjaman'); ?>" class="nav-link"><i class="fa fa-book mr-2"></i>Peminjaman</a>
+                    <a href="<?php echo base_url('petugas/peminjaman'); ?>" class="nav-link"><i class="fa fa-list mr-2"></i>Peminjaman</a>
                 </li>
                 <li class="nav-item">
-                    <a href="<?php echo base_url('petugas/peminjaman_laporan'); ?>" class="nav-link"><i class="fa fa-book mr-2"></i>Laporan Peminjaman</a>
+                    <a href="<?php echo base_url('petugas/peminjaman_laporan'); ?>" class="nav-link"><i class="fa fa-file mr-2"></i>Laporan Peminjaman</a>
                 </li>
                 <li class="nav-item">
                     <a href="<?php echo base_url('petugas/ganti_password'); ?>" class="nav-link"><i class="fa fa-lock mr-2"></i>Ganti Password</a>

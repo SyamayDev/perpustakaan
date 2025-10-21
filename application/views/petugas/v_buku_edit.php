@@ -4,7 +4,7 @@
             <h4>Edit Anggota</h4>
         </div>
         <div class="card-body">
-            <a href="<?php echo base_url('petugas/anggota'); ?>"
+            <a href="<?php echo base_url('petugas/buku'); ?>"
                 class="btn btn-sm btn-outline-secondary mb-4">
                 <i class="fa fa-arrow-left mr-2"></i>Kembali
             </a><br><br>

@@ -209,7 +209,8 @@ class petugas extends CI_Controller
         $data['anggota'] = $this->m_data->edit_data($where, 'anggota')->result();
         $this->load->view('petugas/v_anggota_kartu', $data);
     }
-    public function buku(){
+    public function buku()
+    {
         $data['buku'] = $this->m_data->get_data('buku')->result();
         $this->load->view('petugas/v_header');
         $this->load->view('petugas/v_buku', $data);
@@ -235,7 +236,7 @@ class petugas extends CI_Controller
         );
         $this->m_data->insert_data($data, 'buku');
         redirect(base_url('petugas/buku'));
-    } 
+    }
     public function buku_edit($id)
     {
         $where = array('id' => $id);
@@ -256,13 +257,13 @@ class petugas extends CI_Controller
             'id' => $id
         );
 
-            $data = array(
-                'judul' => $judul,
-                'tahun' => $tahun,
-                'penulis' => $penulis,
-                'status' => $status
-            );
-            $this->m_data->update_data($where, $data, 'buku');
+        $data = array(
+            'judul' => $judul,
+            'tahun' => $tahun,
+            'penulis' => $penulis,
+            'status' => $status
+        );
+        $this->m_data->update_data($where, $data, 'buku');
         redirect(base_url('petugas/buku'));
     }
     public function buku_hapus($id)
@@ -271,6 +272,50 @@ class petugas extends CI_Controller
         $this->m_data->delete_data($where, 'buku');
         redirect(base_url('petugas/buku'));
     }
+    // akhir crud buku
 
+    public function peminjaman()
+    {
+        $data['peminjaman'] = $this->db->query("select * from peminjaman,buku,anggota 
+        where peminjaman.peminjaman_buku=buku.id and peminjaman.peminjaman_anggota=anggota.id 
+        order by peminjaman_id desc")->result();
+        $this->load->view('petugas/v_header');
+        $this->load->view('petugas/v_peminjaman', $data);
+        $this->load->view('petugas/v_footer');
+    }
+    public function peminjaman_tambah()
+    {
+        $where = array('status' => 1);
+        $data['buku'] = $this->m_data->edit_data($where, 'buku')->result();
+        $data['anggota'] = $this->m_data->get_data('anggota')->result();
+        $this->load->view('petugas/v_header');
+        $this->load->view('petugas/v_peminjaman_tambah', $data);
+        $this->load->view('petugas/v_footer');
+    }
+    public function peminjaman_aksi()
+    {
+        $buku = $this->input->post('buku');
+        $anggota = $this->input->post('anggota');
+        $tanggal_mulai = $this->input->post('tanggal_mulai');
+        $tanggal_sampai = $this->input->post('tanggal_sampai');
 
+        $data = array(
+            'peminjaman_buku' => $buku,
+            'peminjaman_anggota' => $anggota,
+            'peminjaman_tanggal_mulai' => $tanggal_mulai,
+            'peminjaman_tanggal_sampai' => $tanggal_sampai,
+            'peminjaman_status' => 2
+        );
+
+        $this->m_data->insert_data($data, 'peminjaman');
+
+        $w = array(
+            'id' => $buku
+        );
+        $d = array(
+            'status' => 2
+        );
+        $this->m_data->update_data($w, $d, 'buku');
+        redirect(base_url('petugas/peminjaman'));
+    }
 }
