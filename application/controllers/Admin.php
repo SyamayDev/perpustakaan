@@ -9,7 +9,7 @@ class Admin extends CI_Controller
         $this->load->helper('url');
         $this->load->library('session');
 
-        if($this->session->userdata('status') != "admin_login"){
+        if ($this->session->userdata('status') != "admin_login") {
             redirect(base_url('login?alert=belum_login'));
         }
     }
@@ -86,14 +86,16 @@ class Admin extends CI_Controller
         $this->m_data->insert_data($data, 'petugas');
         redirect(base_url('admin/petugas'));
     }
-    public function petugas_edit($id){
+    public function petugas_edit($id)
+    {
         $where = array('id' => $id);
         $data['petugas'] = $this->m_data->edit_data($where, 'petugas')->result();
-        $this->load->view('admin/v_header');    
+        $this->load->view('admin/v_header');
         $this->load->view('admin/v_petugas_edit', $data);
         $this->load->view('admin/v_footer');
     }
-    public function petugas_update(){
+    public function petugas_update()
+    {
         $id = $this->input->post('id');
         $nama = $this->input->post('nama');
         $username = $this->input->post('username');
@@ -109,20 +111,78 @@ class Admin extends CI_Controller
                 'username' => $username
             );
             $this->m_data->update_data($where, $data, 'petugas');
-    } else {
-        $data = array(
-            'nama' => $nama,
-            'username' => $username,
-            'password' => md5($password)
-        );
-        $this->m_data->update_data($where, $data, 'petugas');
-    }
+        } else {
+            $data = array(
+                'nama' => $nama,
+                'username' => $username,
+                'password' => md5($password)
+            );
+            $this->m_data->update_data($where, $data, 'petugas');
+        }
         redirect(base_url('admin/petugas'));
     }
-public function petugas_hapus($id){
+    public function petugas_hapus($id)
+    {
         $where = array('id' => $id);
         $this->m_data->delete_data($where, 'petugas');
         redirect(base_url('admin/petugas'));
     }
-    // akhir crud petuas
+    // akhir crud petugas
+    public function anggota()
+    {
+        // mengambil data dari database
+        $data['anggota'] = $this->m_data->get_data('anggota')->result();
+        $this->load->view('admin/v_header');
+        $this->load->view('admin/v_anggota', $data);
+        $this->load->view('admin/v_footer');
+    }
+    public function anggota_kartu($id)
+    {
+        $where = array('id' => $id);
+        $data['anggota'] = $this->m_data->edit_data($where, 'anggota')->result();
+        $this->load->view('admin/v_anggota_kartu', $data);
+    }
+    public function buku()
+    {
+        $data['buku'] = $this->m_data->get_data('buku')->result();
+        $this->load->view('admin/v_header');
+        $this->load->view('admin/v_buku', $data);
+        $this->load->view('admin/v_footer');
+    }
+    public function peminjaman_laporan()
+    {
+        if(isset($_GET['tanggal_mulai']) && isset($_GET['tanggal_sampai'])) {
+            $mulai = $this->input->get('tanggal_mulai');
+            $sampai = $this->input->get('tanggal_sampai');
+            // mengammbil data peminjaman berdasrkan tanggal mulai sampai tanggal sampai
+            $data['peminjaman'] = $this->db->query("select * from peminjaman,buku,anggota 
+            where peminjaman.peminjaman_buku=buku.id and peminjaman.peminjaman_anggota=anggota.id 
+            and date(peminjaman_tanggal_mulai) >= '$mulai' and date(peminjaman_tanggal_sampai)
+            <= '$sampai' order by peminjaman_id desc")->result();
+        } else {
+            // mengambil data peminjaman buku dari database | dan mengurutkan data dari id peminjaman terbesar ke terkecil (desc)
+            $data['peminjaman'] = $this->db->query("select * from peminjaman,buku,anggota 
+            where peminjaman.peminjaman_buku=buku.id and peminjaman.peminjaman_anggota=anggota.id 
+            order by peminjaman_id desc")->result();
+        }
+        $this->load->view('admin/v_header');
+        $this->load->view('admin/v_peminjaman_laporan', $data);
+        $this->load->view('admin/v_footer');
+    }
+    public function peminjaman_cetak()
+    {
+        if(isset($_GET['tanggal_mulai']) && isset($_GET['tanggal_sampai']) ) {
+            $mulai = $this->input->get('tanggal_mulai');
+            $sampai = $this->input->get('tanggal_sampai');
+            // mengammbil data peminjaman berdasrkan tanggal mulai sampai tanggal sampai
+            $data['peminjaman'] = $this->db->query("select * from peminjaman,buku,anggota 
+            where peminjaman.peminjaman_buku=buku.id and peminjaman.peminjaman_anggota=anggota.id 
+            and date(peminjaman_tanggal_mulai) >= '$mulai' and date(peminjaman_tanggal_sampai)
+            <= '$sampai' order by peminjaman_id desc")->result();
+        $this->load->view('admin/v_peminjaman_cetak', $data);
+        } else {
+            redirect(base_url('admin/peminjaman'));
+        }
+    
+    }
 }

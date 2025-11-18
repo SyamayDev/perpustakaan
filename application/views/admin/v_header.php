@@ -37,6 +37,9 @@
                     <a href="<?php echo base_url('admin/anggota'); ?>" class="nav-link"><i class="fa fa-users mr-2"></i>Anggota</a>
                 </li>
                 <li class="nav-item">
+                    <a href="<?php echo base_url('admin/buku'); ?>" class="nav-link"><i class="fa fa-book mr-2"></i>Buku</a>
+                </li>
+                <li class="nav-item">
                     <a href="<?php echo base_url('admin/peminjaman_laporan'); ?>" class="nav-link"><i class="fa fa-book mr-2"></i>Laporan Peminjaman</a>
                 </li>
                 <li class="nav-item">

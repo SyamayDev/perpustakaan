@@ -318,4 +318,87 @@ class petugas extends CI_Controller
         $this->m_data->update_data($w, $d, 'buku');
         redirect(base_url('petugas/peminjaman'));
     }
+    public function peminjaman_batalkan($id)
+    {
+        // mengambil data peminjaman berdasarkan id
+        $where = array('peminjaman_id' => $id);
+
+        $data = $this->m_data->edit_data($where, 'peminjaman')->row();
+        $buku = $data->peminjaman_buku;
+
+        $w = array(
+            'id' => $buku
+        );
+        $d = array(
+            'status' => 1
+        );
+        $this->m_data->update_data($w, $d, 'buku');
+
+        // ubah status peminjaman menjadi "dibatalkan" (status 0)
+        $dd = array('peminjaman_status' => 0);
+        $this->m_data->update_data($where, $dd, 'peminjaman');
+
+        redirect(base_url('petugas/peminjaman'));
+    }
+    public function peminjaman_selesai($id)
+    {
+        // mengambil data peminjaman berdasarkan id
+        $where = array('peminjaman_id' => $id);
+
+        $data = $this->m_data->edit_data($where, 'peminjaman')->row();
+        $buku = $data->peminjaman_buku;
+
+        $w = array(
+            'id' => $buku
+        );
+        $d = array(
+            'status' => 1
+        );
+        $this->m_data->update_data($w, $d, 'buku');
+
+        $dw = array(
+            'peminjaman_id' => $id
+        );
+        $dd = array(
+            'peminjaman_status' => 1
+        );
+        $this->m_data->update_data($dw, $dd, 'peminjaman');
+        redirect(base_url('petugas/peminjaman'));
+    }
+    public function peminjaman_laporan()
+    {
+        if(isset($_GET['tanggal_mulai']) && isset($_GET['tanggal_sampai'])) {
+            $mulai = $this->input->get('tanggal_mulai');
+            $sampai = $this->input->get('tanggal_sampai');
+            // mengammbil data peminjaman berdasrkan tanggal mulai sampai tanggal sampai
+            $data['peminjaman'] = $this->db->query("select * from peminjaman,buku,anggota 
+            where peminjaman.peminjaman_buku=buku.id and peminjaman.peminjaman_anggota=anggota.id 
+            and date(peminjaman_tanggal_mulai) >= '$mulai' and date(peminjaman_tanggal_sampai)
+            <= '$sampai' order by peminjaman_id desc")->result();
+        } else {
+            // mengambil data peminjaman buku dari database | dan mengurutkan data dari id peminjaman terbesar ke terkecil (desc)
+            $data['peminjaman'] = $this->db->query("select * from peminjaman,buku,anggota 
+            where peminjaman.peminjaman_buku=buku.id and peminjaman.peminjaman_anggota=anggota.id 
+            order by peminjaman_id desc")->result();
+        }
+        $this->load->view('petugas/v_header');
+        $this->load->view('petugas/v_peminjaman_laporan', $data);
+        $this->load->view('petugas/v_footer');
+    }
+    public function peminjaman_cetak()
+    {
+        if(isset($_GET['tanggal_mulai']) && isset($_GET['tanggal_sampai']) ) {
+            $mulai = $this->input->get('tanggal_mulai');
+            $sampai = $this->input->get('tanggal_sampai');
+            // mengammbil data peminjaman berdasrkan tanggal mulai sampai tanggal sampai
+            $data['peminjaman'] = $this->db->query("select * from peminjaman,buku,anggota 
+            where peminjaman.peminjaman_buku=buku.id and peminjaman.peminjaman_anggota=anggota.id 
+            and date(peminjaman_tanggal_mulai) >= '$mulai' and date(peminjaman_tanggal_sampai)
+            <= '$sampai' order by peminjaman_id desc")->result();
+        $this->load->view('petugas/v_peminjaman_cetak', $data);
+        } else {
+            redirect(base_url('petugas/peminjaman'));
+        }
+    
+    }
 }

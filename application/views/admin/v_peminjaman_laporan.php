@@ -1,0 +1,80 @@
+<div class="container-fluid">
+    <div class="card">
+        <div class="card-header text-center">
+            <h4>Data Laporan Peminjaman</h4>
+        </div>
+        <div class="card-body">
+            <br>
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="card">
+                        <div class="card-header text-center">
+                            <h6>Filter Berdasarkan Tanggal</h6>
+                        </div>
+                        <div class="card-body">
+                            <form method="get" action="">
+                                <div class="form-group">
+                                    <label for="tanggal_mulai" class="font-weight-bold">Tanggal Mulai Pinjam</label>
+                                    <input type="date" name="tanggal_mulai" class="form-control" placeholder="Masukkan Tanggal Mulai">
+                                </div>
+                                <div class="form-group">
+                                    <label for="tanggal_sampai" class="font-weight-bold">Tanggal Pinjam Sampai</label>
+                                    <input type="date" name="tanggal_sampai" class="form-control" placeholder="Masukkan Tanggal Sampai">
+                                </div>
+                                <input type="submit" class="btn btn-primary" value="Filter">
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <br>
+            <?php 
+            
+            if (isset($_GET['tanggal_mulai']) && isset($_GET['tanggal_sampai'])) { 
+                $mulai = $_GET['tanggal_mulai'];
+                $sampai = $_GET['tanggal_sampai'];
+            ?>
+            <a class="btn btn-primary" target="_blank" href="<?php echo base_url('admin/peminjaman_cetak?tanggal_mulai=' . $mulai . '&tanggal_sampai=' . $sampai);?>"><i class="fa fa-print"></i> CETAK</a>
+            <?php } ?>
+            <br><br>
+            <div class="table-responsive">
+                <table class="table table-bordered table-striped table-hover table-datatable">
+                    <thead>
+                        <tr>
+                            <th width="1%">No</th>
+                            <th>Buku</th>
+                            <th>Peminjaman</th>
+                            <th>Mulai Pinjam</th>
+                            <th>Pinjam Sampai</th>
+                            <th>Status</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <?php 
+                        $no = 1;
+                        foreach ($peminjaman as $p) { ?>
+                            <tr>
+                                <td><?php echo $no++; ?></td>
+                                <td><?php echo $p->judul; ?></td>
+                                <td><?php echo $p->nama; ?></td>
+                                <td><?php echo date('d-m-Y', strtotime($p->peminjaman_tanggal_mulai)); ?></td>
+                                <td><?php echo date('d-m-Y', strtotime($p->peminjaman_tanggal_sampai)); ?></td>
+                                <td>
+                                    <?php
+                                    if ($p->peminjaman_status == 2) {
+                                        echo '<span class="badge badge-warning">Dipinjam</span>';
+                                    } else if ($p->peminjaman_status == 1) {
+                                        echo '<span class="badge badge-success">Dikembalikan</span>';
+                                    } else if ($p->peminjaman_status == 0) {
+                                        echo '<span class="badge badge-danger">Dibatalkan</span>';
+                                    }
+                                    ?>
+                                </td>
+                            </tr>
+                        <?php } ?>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
